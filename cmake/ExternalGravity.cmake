@@ -7,7 +7,7 @@ set(GRAVITY_ROOT_DIR ${THIRDPARTY_INSTALL_PATH}/Install/Gravity CACHE INTERNAL "
 if(WIN32)
 ExternalProject_Add(gravity
     DOWNLOAD_DIR ${THIRDPARTY_INSTALL_PATH}
-    DOWNLOAD_COMMAND git clone -b ACOPF --single-branch ${GRAVITY_DOWNLOAD_URL} && rm -fr ./Install/Gravity && mv Gravity ./Install/Gravity && cd ./Install/Gravity && mkdir build && cd build && cmake -DMP=OFF .. && make gravity
+    DOWNLOAD_COMMAND git clone -b ACOPF --single-branch ${GRAVITY_DOWNLOAD_URL} && rm -fr ./Install/Gravity && mv Gravity ./Install/Gravity && cd ./Install/Gravity && mkdir build && cd build && cmake -DMP=OFF .. && make
     URL ${MP_DOWNLOAD_URL}
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${MP_ROOT_DIR}
     CONFIGURE_COMMAND ""
