@@ -5,7 +5,7 @@ set(GRAVITY_DOWNLOAD_URL https://github.com/coin-or/Gravity.git)
 set(GRAVITY_ROOT_DIR ${THIRDPARTY_INSTALL_PATH}/Install/Gravity CACHE INTERNAL "")
 ExternalProject_Add(gravity
     DOWNLOAD_DIR ${THIRDPARTY_INSTALL_PATH}
-    DOWNLOAD_COMMAND export HTTPS_PROXY=$ENV{HTTPS_PROXY} && git clone -b ACOPF --single-branch ${GRAVITY_DOWNLOAD_URL} && rm -fr ./Install/Gravity && mv Gravity ./Install/Gravity && cd ./Install/Gravity && mkdir build && cd build && cmake -DMP=OFF -DCMAKE_CXX_FLAGS="-Wno-non-pod-varargs" .. && make gravity -j
+    DOWNLOAD_COMMAND export HTTPS_PROXY=$ENV{HTTPS_PROXY} && git clone -b ACOPF --single-branch ${GRAVITY_DOWNLOAD_URL} && rm -fr ./Install/Gravity && mv Gravity ./Install/Gravity && cd ./Install/Gravity && mkdir build && cd build && cmake -DMP=OFF -DCMAKE_CXX_FLAGS="-Wno-non-pod-varargs" .. && make gravity
     URL ${MP_DOWNLOAD_URL}
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${MP_ROOT_DIR}
     CONFIGURE_COMMAND ""
