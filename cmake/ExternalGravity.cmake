@@ -12,6 +12,28 @@ ExternalProject_Add(gravity
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
 )
+if(WIN32)
+set(IPOPT_ROOT_DIR ${THIRDPARTY_INSTALL_PATH}/Install/Gravity/thirdparty/Ipopt CACHE INTERNAL "")
+add_custom_command(
+  TARGET ipopt POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy 
+  ${IPOPT_ROOT_DIR}/libipopt-3.dll ${PROJECT_SOURCE_DIR}/bin/Release/libipopt-3.dll)
+
+add_custom_command(
+TARGET ipopt POST_BUILD
+COMMAND ${CMAKE_COMMAND} -E copy 
+${IPOPT_ROOT_DIR}/libblas.dll ${PROJECT_SOURCE_DIR}/bin/Release/libblas.dll)
+
+add_custom_command(
+TARGET ipopt POST_BUILD
+COMMAND ${CMAKE_COMMAND} -E copy 
+${IPOPT_ROOT_DIR}/liblapack.dll ${PROJECT_SOURCE_DIR}/bin/Release/liblapack.dll)
+
+add_custom_command(
+TARGET ipopt POST_BUILD
+COMMAND ${CMAKE_COMMAND} -E copy 
+${IPOPT_ROOT_DIR}/libgfortran-5.dll ${PROJECT_SOURCE_DIR}/bin/Release/libgfortran-5.dll)
+endif()
 
 list(APPEND GLOBAL_THIRDPARTY_LIB_ARGS "-DGRAVITY_ROOT_DIR:PATH=${GRAVITY_ROOT_DIR}")
 set(GRAVITY_INCLUDE_DIRS ${THIRDPARTY_INSTALL_PATH}/Install/Gravity/include)
