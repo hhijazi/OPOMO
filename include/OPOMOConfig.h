@@ -1,1 +1,1 @@
-#define prj_dir "/Users/hlh/Utils/OPOMO"
+#define prj_dir "/vast/home/hlh/Utils/OPOMO"

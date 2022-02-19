@@ -34,6 +34,7 @@ option(OpenMPI "Link to OpenMPI libraries" OFF)
 # Find OPT_PARSER (optional)
 option(OPT_PARSER "Link to OPT_PARSER libraries" ON)
 
+set(THIRDPARTY_INSTALL_PATH ${CMAKE_BINARY_DIR}/third_party)
 
 
 #Ipopt
@@ -50,11 +51,15 @@ else(IPOPT_FOUND)
 if(APPLE)
  set(IPOPT_LIBRARIES ${THIRDPARTY_INSTALL_PATH}/Install/Gravity/build/install/ipopt/build/libipopt.dylib)
 elseif(UNIX)
-set(IPOPT_LIBRARIES ${THIRDPARTY_INSTALL_PATH}/Install/Gravity/thirdparty/Ipopt/libipopt.so ${THIRDPARTY_INSTALL_PATH}/Install/Gravity/thirdparty/Ipopt/libsipopt.so)
+	#set(IPOPT_LIBRARIES ${THIRDPARTY_INSTALL_PATH}/Install/Gravity/thirdparty/Ipopt/libipopt.so ${THIRDPARTY_INSTALL_PATH}/Install/Gravity/thirdparty/Ipopt/libsipopt.so)
+	set(IPOPT_LIBRARIES ${THIRDPARTY_INSTALL_PATH}/Install/Gravity/thirdparty/Ipopt/libipopt.so)
+	message(${IPOPT_LIBRARIES})
+	link_directories(${THIRDPARTY_INSTALL_PATH}/Install/Gravity/thirdparty/Ipopt)
 # elseif(WIN32)
 # set(IPOPT_LIBRARIES ${PROJECT_SOURCE_DIR}/thirdparty/Ipopt/libipopt.so)
 endif(APPLE) 
-include_directories("${PROJECT_SOURCE_DIR}/Install/Gravity/thirdparty/Ipopt/include/coin-or")
+include_directories("${THIRDPARTY_INSTALL_PATH}/Install/Gravity/thirdparty/Ipopt/include/coin-or")
+set(LIBS ${LIBS} ${IPOPT_LIBRARIES})
 #  include(ExternalIpopt)
 endif (IPOPT_FOUND)
 # endif()
@@ -73,7 +78,6 @@ endif()
 set_directory_properties(PROPERTIES EP_BASE ${CMAKE_BINARY_DIR}/third_party)
 get_directory_property(THIRDPARTY_BASE_PATH EP_BASE)
 
-set(THIRDPARTY_INSTALL_PATH ${THIRDPARTY_BASE_PATH})
 
 
 include(ExternalProject)
