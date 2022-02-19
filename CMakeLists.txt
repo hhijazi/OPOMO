@@ -8,7 +8,7 @@ else()
   # This test is very noisy with warnings about this policy if we don't
   # explicitly set it. Projects shouldn't do this, but for test code this
   # is reasonable.
-  cmake_policy(SET CMP0114 OLD)
+  # cmake_policy(SET CMP0114 OLD)
 endif()
 
 
