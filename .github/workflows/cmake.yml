@@ -62,7 +62,7 @@ jobs:
         set(cmake_version "3.16.2")
         
         message(STATUS "Using host CMake version: ${CMAKE_VERSION}")
-        if ("${{ runner.os }}" STREQUAL "windows-latest")
+        if ("${{ runner.os }}" STREQUAL "Windows")
           set(ninja_suffix "win.zip")
           set(cmake_suffix "win64-x64.zip")
           set(cmake_dir "cmake-${cmake_version}-win64-x64/bin")
@@ -84,7 +84,7 @@ jobs:
         # Save the path for other steps
         file(TO_CMAKE_PATH "$ENV{GITHUB_WORKSPACE}/${cmake_dir}" cmake_dir)
         message("::set-output name=cmake_dir::${cmake_dir}")
-        if (NOT "${{ runner.os }}" STREQUAL "windows-latest")
+        if (NOT "${{ runner.os }}" STREQUAL "Windows")
           execute_process(
             COMMAND chmod +x ninja
             COMMAND chmod +x ${cmake_dir}/cmake
@@ -95,7 +95,7 @@ jobs:
       run: |
         set(ENV{CC} "x86_64-w64-mingw32-gcc")
         set(ENV{CXX} "x86_64-w64-mingw32-g++")
-        if ("${{ runner.os }}" STREQUAL "windows-latest" AND NOT "x${{ matrix.config.environment_script }}" STREQUAL "x")
+        if ("${{ runner.os }}" STREQUAL "Windows" AND NOT "x${{ matrix.config.environment_script }}" STREQUAL "x")
           execute_process(
             COMMAND "${{ matrix.config.environment_script }}" && set
             OUTPUT_FILE environment_script_output.txt
@@ -124,7 +124,7 @@ jobs:
       shell: cmake -P {0}
       run: |
         set(ENV{NINJA_STATUS} "[%f/%t %o/sec] ")
-        if ("${{ runner.os }}" STREQUAL "windows-latest" AND NOT "x${{ matrix.config.environment_script }}" STREQUAL "x")
+        if ("${{ runner.os }}" STREQUAL "Windows" AND NOT "x${{ matrix.config.environment_script }}" STREQUAL "x")
           file(STRINGS environment_script_output.txt output_lines)
           foreach(line IN LISTS output_lines)
             if (line MATCHES "^([a-zA-Z0-9_-]+)=(.*)$")
