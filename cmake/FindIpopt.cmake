@@ -4,15 +4,16 @@ message("Looking for Ipopt in ${IPOPT_ROOT_DIR}")
 
 include(FindPackageHandleStandardArgs)
 
-if(WIN32)
-
 find_path(IPOPT_INCLUDE_DIR
 	NAMES IpNLP.hpp 
 	HINTS /usr/local/include/coin
 	HINTS ${IPOPT_ROOT_DIR}/include/coin
+	HINTS ${IPOPT_ROOT_DIR}/include/coin-or
 	HINTS ${IPOPT_ROOT_DIR}/include
 	HINTS ${PROJECT_SOURCE_DIR}/thirdparty/Ipopt/include/coin-or
 )
+
+if(WIN32)
 
 find_library(IPOPT_LIBRARY 
 	libipopt-3.lib
@@ -32,12 +33,7 @@ find_library(IPOPT_LIBRARY2
 
 find_package_handle_standard_args(IPOPT DEFAULT_MSG IPOPT_LIBRARY IPOPT_LIBRARY2 IPOPT_INCLUDE_DIR)
 elseif(APPLE)
-find_path(IPOPT_INCLUDE_DIR
-	NAMES IpNLP.hpp 
-	HINTS /usr/local/include/coin
-	HINTS ${IPOPT_ROOT_DIR}/include/coin
-	HINTS ${IPOPT_ROOT_DIR}/include
-)
+
 find_library(IPOPT_LIBRARY 
 	libipopt.dylib
 	HINTS /usr/local/lib
@@ -46,17 +42,12 @@ find_library(IPOPT_LIBRARY
 )
 find_package_handle_standard_args(IPOPT DEFAULT_MSG IPOPT_LIBRARY IPOPT_INCLUDE_DIR)
 elseif(UNIX)
-find_path(IPOPT_INCLUDE_DIR
-	NAMES IpNLP.hpp 
-	HINTS /usr/local/include/coin
-	HINTS ${IPOPT_ROOT_DIR}/include/coin
-	HINTS ${IPOPT_ROOT_DIR}/include
-	HINTS ${PROJECT_SOURCE_DIR}/thirdparty/Ipopt/include/coin-or
-)
+
 find_library(IPOPT_LIBRARY 
 	libipopt.so
 	HINTS /usr/local/lib
 	HINTS ${IPOPT_ROOT_DIR}/lib
+	HINTS ${IPOPT_ROOT_DIR}/build/lib
 	HINTS ${PROJECT_SOURCE_DIR}/third_party/CoinIpopt/build/lib
 	HINTS ${PROJECT_SOURCE_DIR}/thirdparty/Ipopt
 )
