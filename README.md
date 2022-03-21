@@ -1,6 +1,42 @@
+[![License](https://img.shields.io/badge/License-BSD--3-brightgreen.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 <p align="center">
   <a href="https://github.com/hhijazi/ACOPF">
     <img src="https://github.com/hhijazi/ACOPF/blob/master/logo.svg" width="320" alt="ACOPF">
   </a>
 </p>
+
+## Citing
+Bibtex ref:
+`@article{OPOMO,
+  title={Benchmarking Large-Scale ACOPF Solutions and Optimality Bounds},
+  author={Smitha Gopinath and Hassan L. Hijazi},
+  journal={Proceedings of the 2022 IEEE Power Engineering Society (PES) General Meeting (GM)},
+  year={2022}
+}`
+
+------------------
+Numerical Results
+------------------
+OPOMO is benchmarked with [Matpower](https://matpower.org), [PowerModels](https://github.com/lanl-ansi/PowerModels.jl) and [GridOpt](https://github.com/ttinoco/GRIDOPT) on [PGLiB v21.07](https://github.com/power-grid-lib/pglib-opf/releases/tag/v21.07).
+![Benchmarking](https://static.wixstatic.com/media/c6cff5_36a4e63974a240d2861b3af10888ec04~mv2.png)
+![Performance Profile on ACOPF](https://static.wixstatic.com/media/c6cff5_96595dc0cbbd4472bde31d664176a5ef~mv2.png)
+
+------------------
+Getting Started
+------------------
+
+OPOMO has been only tested on Linux and Mac, Windows support is upcoming.
+
+Dependencies
+------------
+
+Install [Cmake](http://www.cmake.org) version 3.16 or later.
+
+OPOMO will pull [Gravity](), [Ipopt](), and [opt_parser]() automatically, you just need to enter the following:
+
+`mkdir build && cd build && cmake .. && make`
+
+The executable will appear under `Gravity/bin/Release`
+
+Run using: `Gravity/bin/Release/acopf -f path_to_m_file`
