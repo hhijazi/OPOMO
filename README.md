@@ -6,6 +6,11 @@
   </a>
 </p>
 
+## About
+
+OPOMO is a C++ tool for solving the [Optimal Power Flow problem](https://arxiv.org/abs/1910.03716) (AC/DC). 
+It is built on top of the modeling language [Gravity](https://github.com/coin-or/Gravity), and uses the nonlinear solver [Ipopt](https://github.com/coin-or/Ipopt).
+
 ## Citing
 Bibtex ref:
 `@article{OPOMO,
@@ -59,4 +64,4 @@ Short_name   | Long_name    | Description | Default_value
 
 Notes
 ---
-Logo constructed using [svg3d](https://github.com/prideout/svg3d), kudos to the author Philip Rideout.
+Logo constructed using [svg3d](https://github.com/prideout/svg3d), thanks to Philip Rideout.
