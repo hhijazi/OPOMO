@@ -33,7 +33,7 @@ Dependencies
 
 Install [Cmake](http://www.cmake.org) version 3.16 or later.
 
-OPOMO will pull [Gravity](), [Ipopt](), and [opt_parser]() automatically, you just need to enter the following:
+OPOMO will pull [Gravity](https://github.com/coin-or/Gravity/tree/ACOPF), [Ipopt](https://github.com/coin-or/Ipopt), and [cpp_option_parser](github.com/Lcressot/cpp_option_parser) automatically, you just need to enter the following:
 
 `mkdir build && cd build && cmake .. && make`
 
