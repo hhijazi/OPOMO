@@ -53,3 +53,10 @@ Short_name   | Long_name    | Description | Default_value
 -s       |     --scale  |    Scale objective function and thermal limit constraints |    1e-3
 -t       |     --tol    |    solver tolerance                                      |    1e-6
 -m       |     --model  |    power flow model: ACPOL/ACRECT                    |    ACPOL
+
+
+
+
+Notes
+---
+Logo constructed using [svg3d](https://github.com/prideout/svg3d), kudos to the author Philip Rideout.
