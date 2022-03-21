@@ -40,3 +40,16 @@ OPOMO will pull [Gravity](), [Ipopt](), and [opt_parser]() automatically, you ju
 The executable will appear under `Gravity/bin/Release`
 
 Run using: `Gravity/bin/Release/acopf -f path_to_m_file`
+
+Command Line Options
+--
+
+
+Short_name   | Long_name    | Description | Default_value
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+-h       |     --help   |    shows option help                                                 |    -
+-f       |     --file   |    Input file name     |   ../data_sets/Power/nesta_case5_pjm.m
+-l       |     --log    |    Log level                                           |    0
+-s       |     --scale  |    Scale objective function and thermal limit constraints |    1e-3
+-t       |     --tol    |    solver tolerance                                      |    1e-6
+-m       |     --model  |    power flow model: ACPOL/ACRECT                    |    ACPOL
