@@ -157,9 +157,9 @@ int main (int argc, char * argv[])
     Constraint Flow_P_From("Flow_P_From");
     Flow_P_From += Pf_from;
     if (polar) {
-        Flow_P_From -= grid.g/power(grid.tr,2)*power(v.from(),2);
-        Flow_P_From += grid.g/grid.tr*(v.from()*v.to()*cos(theta.from() - theta.to() - grid.as));
-        Flow_P_From += grid.b/grid.tr*(v.from()*v.to()*sin(theta.from() - theta.to() - grid.as));
+        Flow_P_From -= grid.g_ff*power(v.from(),2);
+        Flow_P_From -= grid.g_ft*(v.from()*v.to()*cos(theta.from() - theta.to()));
+        Flow_P_From -= grid.b_ft*(v.from()*v.to()*sin(theta.from() - theta.to()));
     }
     else {
         Flow_P_From -= grid.g_ff*(power(vr.from(), 2) + power(vi.from(), 2));
@@ -171,9 +171,9 @@ int main (int argc, char * argv[])
     Constraint Flow_P_To("Flow_P_To");
     Flow_P_To += Pf_to;
     if (polar) {
-        Flow_P_To -= grid.g*power(v.to(), 2);
-        Flow_P_To += grid.g/grid.tr*(v.from()*v.to()*cos(theta.from() - theta.to() - grid.as));
-        Flow_P_To -= grid.b/grid.tr*(v.from()*v.to()*sin(theta.from() - theta.to() - grid.as));
+        Flow_P_To -= grid.g_tt*power(v.to(), 2);
+        Flow_P_To -= grid.g_tf*(v.from()*v.to()*cos(theta.from() - theta.to()));
+        Flow_P_To += grid.b_tf*(v.from()*v.to()*sin(theta.from() - theta.to()));
     }
     else {
         Flow_P_To -= grid.g_tt*(power(vr.to(), 2) + power(vi.to(), 2));
@@ -185,9 +185,9 @@ int main (int argc, char * argv[])
     Constraint Flow_Q_From("Flow_Q_From");
     Flow_Q_From += Qf_from;
     if (polar) {
-        Flow_Q_From += (0.5*grid.ch+grid.b)/power(grid.tr,2)*power(v.from(),2);
-        Flow_Q_From -= grid.b/grid.tr*(v.from()*v.to()*cos(theta.from() - theta.to() - grid.as));
-        Flow_Q_From += grid.g/grid.tr*(v.from()*v.to()*sin(theta.from() - theta.to() - grid.as));
+        Flow_Q_From += grid.b_ff*power(v.from(),2);
+        Flow_Q_From += grid.b_ft*(v.from()*v.to()*cos(theta.from() - theta.to()));
+        Flow_Q_From -= grid.g_ft*(v.from()*v.to()*sin(theta.from() - theta.to()));
     }
     else {
         Flow_Q_From += grid.b_ff*(power(vr.from(), 2) + power(vi.from(), 2));
@@ -198,9 +198,9 @@ int main (int argc, char * argv[])
     Constraint Flow_Q_To("Flow_Q_To");
     Flow_Q_To += Qf_to;
     if (polar) {
-        Flow_Q_To += (0.5*grid.ch+grid.b)*power(v.to(),2);
-        Flow_Q_To -= grid.b/grid.tr*(v.from()*v.to()*cos(theta.from() - theta.to() - grid.as));
-        Flow_Q_To -= grid.g/grid.tr*(v.from()*v.to()*sin(theta.from() - theta.to() - grid.as));
+        Flow_Q_To += grid.b_tt*power(v.to(),2);
+        Flow_Q_To += grid.b_tf*(v.from()*v.to()*cos(theta.from() - theta.to()));
+        Flow_Q_To += grid.g_tf*(v.from()*v.to()*sin(theta.from() - theta.to()));
     }
     else {
         Flow_Q_To += grid.b_tt*(power(vr.to(), 2) + power(vi.to(), 2));
