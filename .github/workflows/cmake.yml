@@ -90,65 +90,65 @@ jobs:
             COMMAND chmod +x ${cmake_dir}/cmake
           )
         endif()
-    - name: Configure
-      shell: cmake -P {0}
-      run: |
-        set(ENV{CC} "x86_64-w64-mingw32-gcc")
-        set(ENV{CXX} "x86_64-w64-mingw32-g++")
-        if ("${{ runner.os }}" STREQUAL "Windows" AND NOT "x${{ matrix.config.environment_script }}" STREQUAL "x")
-          execute_process(
-            COMMAND "${{ matrix.config.environment_script }}" && set
-            OUTPUT_FILE environment_script_output.txt
-          )
-          file(STRINGS environment_script_output.txt output_lines)
-          foreach(line IN LISTS output_lines)
-            if (line MATCHES "^([a-zA-Z0-9_-]+)=(.*)$")
-              set(ENV{${CMAKE_MATCH_1}} "${CMAKE_MATCH_2}")
-            endif()
-          endforeach()
-        endif()
-        file(TO_CMAKE_PATH "$ENV{GITHUB_WORKSPACE}/ninja" ninja_program)
-        execute_process(
-          COMMAND ${{ steps.cmake_and_ninja.outputs.cmake_dir }}/cmake
-            -S .
-            -B build
-            -D CMAKE_BUILD_TYPE="Release"
-            -G Ninja
-            -D CMAKE_MAKE_PROGRAM=${ninja_program}
-          RESULT_VARIABLE result
-        )
-        if (NOT result EQUAL 0)
-          message(FATAL_ERROR "Bad exit status")
-        endif()
-    - name: Build
-      shell: cmake -P {0}
-      run: |
-        set(ENV{NINJA_STATUS} "[%f/%t %o/sec] ")
-        if ("${{ runner.os }}" STREQUAL "Windows" AND NOT "x${{ matrix.config.environment_script }}" STREQUAL "x")
-          file(STRINGS environment_script_output.txt output_lines)
-          foreach(line IN LISTS output_lines)
-            if (line MATCHES "^([a-zA-Z0-9_-]+)=(.*)$")
-              set(ENV{${CMAKE_MATCH_1}} "${CMAKE_MATCH_2}")
-            endif()
-          endforeach()
-        endif()
-        execute_process(
-          COMMAND ${{ steps.cmake_and_ninja.outputs.cmake_dir }}/cmake --build build
-          RESULT_VARIABLE result
-        )
-        if (NOT result EQUAL 0)
-          message(FATAL_ERROR "Bad exit status")
-        endif()
-    - name: Run tests
-      shell: cmake -P {0}
-      run: |
-        include(ProcessorCount)
-        ProcessorCount(N)
-        execute_process(
-          COMMAND ${{ steps.cmake_and_ninja.outputs.cmake_dir }}/ctest -j ${N}
-          WORKING_DIRECTORY build
-          RESULT_VARIABLE result
-        )
-        if (NOT result EQUAL 0)
-          message(FATAL_ERROR "Running tests failed!")
-        endif()
+#     - name: Configure
+#       shell: cmake -P {0}
+#       run: |
+#         set(ENV{CC} "x86_64-w64-mingw32-gcc")
+#         set(ENV{CXX} "x86_64-w64-mingw32-g++")
+#         if ("${{ runner.os }}" STREQUAL "Windows" AND NOT "x${{ matrix.config.environment_script }}" STREQUAL "x")
+#           execute_process(
+#             COMMAND "${{ matrix.config.environment_script }}" && set
+#             OUTPUT_FILE environment_script_output.txt
+#           )
+#           file(STRINGS environment_script_output.txt output_lines)
+#           foreach(line IN LISTS output_lines)
+#             if (line MATCHES "^([a-zA-Z0-9_-]+)=(.*)$")
+#               set(ENV{${CMAKE_MATCH_1}} "${CMAKE_MATCH_2}")
+#             endif()
+#           endforeach()
+#         endif()
+#         file(TO_CMAKE_PATH "$ENV{GITHUB_WORKSPACE}/ninja" ninja_program)
+#         execute_process(
+#           COMMAND ${{ steps.cmake_and_ninja.outputs.cmake_dir }}/cmake
+#             -S .
+#             -B build
+#             -D CMAKE_BUILD_TYPE="Release"
+#             -G Ninja
+#             -D CMAKE_MAKE_PROGRAM=${ninja_program}
+#           RESULT_VARIABLE result
+#         )
+#         if (NOT result EQUAL 0)
+#           message(FATAL_ERROR "Bad exit status")
+#         endif()
+#     - name: Build
+#       shell: cmake -P {0}
+#       run: |
+#         set(ENV{NINJA_STATUS} "[%f/%t %o/sec] ")
+#         if ("${{ runner.os }}" STREQUAL "Windows" AND NOT "x${{ matrix.config.environment_script }}" STREQUAL "x")
+#           file(STRINGS environment_script_output.txt output_lines)
+#           foreach(line IN LISTS output_lines)
+#             if (line MATCHES "^([a-zA-Z0-9_-]+)=(.*)$")
+#               set(ENV{${CMAKE_MATCH_1}} "${CMAKE_MATCH_2}")
+#             endif()
+#           endforeach()
+#         endif()
+#         execute_process(
+#           COMMAND ${{ steps.cmake_and_ninja.outputs.cmake_dir }}/cmake --build build
+#           RESULT_VARIABLE result
+#         )
+#         if (NOT result EQUAL 0)
+#           message(FATAL_ERROR "Bad exit status")
+#         endif()
+#     - name: Run tests
+#       shell: cmake -P {0}
+#       run: |
+#         include(ProcessorCount)
+#         ProcessorCount(N)
+#         execute_process(
+#           COMMAND ${{ steps.cmake_and_ninja.outputs.cmake_dir }}/ctest -j ${N}
+#           WORKING_DIRECTORY build
+#           RESULT_VARIABLE result
+#         )
+#         if (NOT result EQUAL 0)
+#           message(FATAL_ERROR "Running tests failed!")
+#         endif()
