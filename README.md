@@ -12,7 +12,7 @@ OPOMO is a C++ tool for solving the [Optimal Power Flow problem](https://arxiv.o
 It is built on top of the modeling language [Gravity](https://github.com/coin-or/Gravity), and uses the nonlinear solver [Ipopt](https://github.com/coin-or/Ipopt).
 
 ## Citing
-Bibtex ref:
+Bibtex [ref](https://doi.org/10.48550/arxiv.2203.11328):
 `@article{OPOMO,
   title={Benchmarking Large-Scale ACOPF Solutions and Optimality Bounds},
   author={Smitha Gopinath and Hassan L. Hijazi},
