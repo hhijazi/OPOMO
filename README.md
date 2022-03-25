@@ -23,7 +23,7 @@ Bibtex [ref](https://doi.org/10.48550/arxiv.2203.11328):
 ------------------
 Numerical Results
 ------------------
-OPOMO is benchmarked with [Matpower](https://matpower.org), [PowerModels](https://github.com/lanl-ansi/PowerModels.jl) and [GridOpt](https://github.com/ttinoco/GRIDOPT) on [PGLiB v21.07](https://github.com/power-grid-lib/pglib-opf/releases/tag/v21.07).
+OPOMO is benchmarked against [Matpower](https://matpower.org), [PowerModels](https://github.com/lanl-ansi/PowerModels.jl) and [GridOpt](https://github.com/ttinoco/GRIDOPT) on [PGLiB v21.07](https://github.com/power-grid-lib/pglib-opf/releases/tag/v21.07).
 ![Benchmarking](https://static.wixstatic.com/media/c6cff5_36a4e63974a240d2861b3af10888ec04~mv2.png)
 ![Performance Profile on ACOPF](https://static.wixstatic.com/media/c6cff5_96595dc0cbbd4472bde31d664176a5ef~mv2.png)
 
