@@ -272,16 +272,16 @@ int main (int argc, char * argv[])
     auto total_time = total_time_end - total_time_start;
     auto build_time = build_time_end - build_time_start;
     bool feasible = status==0;
-    string feas_string = "feasible";
+    string feas_string = "true";
     if(!feasible)
-        feas_string = "infeasible";
+        feas_string = "false";
     /** Terminal output */
 //    string result_name="out.txt";
 //ofstream fout(result_name.c_str(),std::ios::app);
 //    fout<<nb_buses<< " , " << grid._name<<" , "<<std::setprecision(10)<<ACOPF._obj_val*1./scale<<" , "<<std::setprecision(4)<<total_time<<" , \\\\"<< endl;
 ////fout<<nb_buses<<endl;
 //    fout.close();
-    string out = "DATA, " + grid._name + ", " + to_string(nb_buses) + ", " + to_string(nb_lines) +", " + feas_string +", " + to_string(ACOPF._obj_val*1./scale) + ", " + to_string(total_time)+ ", " + to_string(data_time)+ ", " + to_string(build_time)+ ", " + to_string(solve_time)  + "0";
+    string out = "DATA, " + grid._name + ", " + to_string(nb_buses) + ", " + to_string(nb_lines) +", " + feas_string +", " + to_string(ACOPF._obj_val*1./scale) + ", " + to_string(total_time)+ ", " + to_string(data_time)+ ", " + to_string(build_time)+ ", " + to_string(solve_time)  + ", 0";
     DebugOn(out <<endl);
     
     return 0;
