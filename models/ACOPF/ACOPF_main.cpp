@@ -21,13 +21,15 @@ using namespace gravity;
 
 int main (int argc, char * argv[])
 {
+    double total_time_start = get_wall_time();
+    double data_time_start = get_wall_time();
     string fname = string(prj_dir)+"/data_sets/Power/nesta_case5_pjm.m", mtype = "ACPOL";
     DebugOn("argv[0] =" << argv[0] << endl);
     string path = argv[0];
     int output = 0;
     bool relax = false;
     double tol = 1e-6;
-    string mehrotra = "no", log_level="0", scale_str="1e-3", tol_str="1e-6";
+    string mehrotra = "no", log_level="0", scale_str="1", tol_str="1e-6";
     
     /** create a OptionParser with options */
     op::OptionParser opt;
@@ -58,9 +60,11 @@ int main (int argc, char * argv[])
         exit(0);
     }
     double scale = stod(scale_str);
-    double total_time_start = get_wall_time();
+    
     PowerNet grid;
     grid.readgrid(fname.c_str());
+    double data_time_end = get_wall_time();
+    auto data_time = data_time_end - data_time_start;
 
     /* Grid Parameters */
     unsigned nb_gen = grid.get_nb_active_gens();
@@ -68,10 +72,10 @@ int main (int argc, char * argv[])
     unsigned nb_buses = grid.get_nb_active_nodes();
 
 
-    DebugOn("nb gens = " << nb_gen << endl);
-    DebugOn("nb lines = " << 2*nb_lines << endl);
-    DebugOn("nb buses = " << nb_buses << endl);
-
+    DebugOff("nb gens = " << nb_gen << endl);
+    DebugOff("nb lines = " << 2*nb_lines << endl);
+    DebugOff("nb buses = " << nb_buses << endl);
+    double build_time_start = get_wall_time();
     PowerModelType pmt = ACPOL;
     if(!strcmp(mtype.c_str(),"ACRECT")) pmt = ACRECT;
     bool polar = (pmt==ACPOL);
@@ -259,20 +263,25 @@ int main (int argc, char * argv[])
     ACOPF.add(Thermal_Limit_to.in(grid.arcs) <= 0);
     
     solver OPF(ACOPF,ipopt);
+    double build_time_end = get_wall_time();
     double solver_time_start = get_wall_time();
     auto status = OPF.run(output, relax = false, tol = stod(tol_str), "ma27", mehrotra = "no");
     double solver_time_end = get_wall_time();
     double total_time_end = get_wall_time();
     auto solve_time = solver_time_end - solver_time_start;
     auto total_time = total_time_end - total_time_start;
-
+    auto build_time = build_time_end - build_time_start;
+    bool feasible = status==0;
+    string feas_string = "feasible";
+    if(!feasible)
+        feas_string = "infeasible";
     /** Terminal output */
-    string result_name="out.txt";
-ofstream fout(result_name.c_str(),std::ios::app);
-    fout<<nb_buses<< " , " << grid._name<<" , "<<std::setprecision(10)<<ACOPF._obj_val*1./scale<<" , "<<std::setprecision(4)<<total_time<<" , \\\\"<< endl;
-//fout<<nb_buses<<endl;
-    fout.close();
-    string out = "DATA_OPF, " + grid._name + ", " + to_string(nb_buses) + ", " + to_string(nb_lines) +", " + to_string(ACOPF._obj_val*1./scale) + ", " + to_string(-numeric_limits<double>::infinity()) + ", " + to_string(solve_time) + ", LocalOptimal, " + to_string(total_time);
+//    string result_name="out.txt";
+//ofstream fout(result_name.c_str(),std::ios::app);
+//    fout<<nb_buses<< " , " << grid._name<<" , "<<std::setprecision(10)<<ACOPF._obj_val*1./scale<<" , "<<std::setprecision(4)<<total_time<<" , \\\\"<< endl;
+////fout<<nb_buses<<endl;
+//    fout.close();
+    string out = "DATA, " + grid._name + ", " + to_string(nb_buses) + ", " + to_string(nb_lines) +", " + feas_string +", " + to_string(ACOPF._obj_val*1./scale) + ", " + to_string(total_time)+ ", " + to_string(data_time)+ ", " + to_string(build_time)+ ", " + to_string(solve_time)  + "0";
     DebugOn(out <<endl);
     
     return 0;
