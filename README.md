@@ -44,7 +44,7 @@ OPOMO will pull [Gravity](https://github.com/coin-or/Gravity/tree/ACOPF), [Ipopt
 
 The executable will appear under `Gravity/bin/Release`
 
-Run using: `Gravity/bin/Release/acopf -f path_to_m_file`
+Run using: `OPOMO/bin/Release/acopf -f path_to_m_file`
 
 Command Line Options
 --
