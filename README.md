@@ -42,7 +42,7 @@ OPOMO will pull [Gravity](https://github.com/coin-or/Gravity/tree/ACOPF), [Ipopt
 
 `mkdir build && cd build && cmake .. && make`
 
-The executable will appear under `Gravity/bin/Release`
+The executable will appear under `OPOMO/bin/Release`
 
 Run using: `OPOMO/bin/Release/acopf -f path_to_m_file`
 
